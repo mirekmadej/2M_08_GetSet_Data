@@ -6,7 +6,19 @@
         public string imie { get; private set; }
         public string nazwisko { get; private set; }
         public DateTime dataUr { get; private set; }
-        public Uczen(int Nr , string Imie ,
+        public bool czyDorosly { get
+            {
+                DateTime dzis = DateTime.Today;
+                var d2 = dzis - dataUr;
+                bool czyDorosly = false;
+                var lat18 = dzis - dzis.AddYears(-18);
+                var ileLat = dzis - dataUr;
+                if (ileLat >= lat18)
+                    czyDorosly = true;
+                return czyDorosly;
+            } 
+        }
+        public Uczen(int Nr, string Imie ,
             string Nazwisko , 
             DateTime DataUr )
         {
@@ -17,8 +29,10 @@
         }
         public override string ToString()
         {
-            return $"{id}\t{imie} {nazwisko} " +
-                $"{dataUr.ToString("yyyy-MM-dd")}";
+           // string dorosly = czyDorosly ? "dorosły" : "nie dorosły";
+            return $"{id}\t{imie} {nazwisko} " 
+               + $"{dataUr.ToString("yyyy-MM-dd")} " 
+               + $"{(czyDorosly ? "dorosły" : "nie dorosły")}";
         }
     }
     internal class Program
@@ -37,6 +51,9 @@
             if(ileLat > lat18)
                 czyDorosly = true;
             Console.WriteLine(czyDorosly);
+            Console.Write("czas do końca zajęć: ");
+            //tu kod
+
         }
     }
 }
